@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Noteify</title>
+    <link rel="stylesheet" href="notes.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://cdn-icons-png.flaticon.com/512/9239/9239205.png"
+    />
+  </head>
+  <body class="light-theme">
+    <div class="app-container">
+      <button id="themeToggle" class="theme-toggle">
+        <b class="">🌓</b>
+      </button>
+      <main class="main-content">
+        <div id="notesGrid" class="notes-grid">
+          <!-- Note cards will be dynamically added here with varying sizes -->
+        </div>
+      </main>
+    </div>
+
+    <div class="bottom-bar">
+      <input type="text" id="searchInput" placeholder="Search notes..." />
+      <div class="categories">
+        <button class="category-filter active" data-category="all">All</button>
+        <button class="category-filter" data-category="personal">
+          Personal
+        </button>
+        <button class="category-filter" data-category="work">Work</button>
+        <button class="category-filter" data-category="ideas">Ideas</button>
+      </div>
+    </div>
+
+    <button id="newNoteBtn" class="new-note-btn">
+      <i class="ri-add-line"></i>
+    </button>
+
+    <div id="noteModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <input type="text" id="noteTitle" placeholder="Note Title" />
+          <select id="noteCategory">
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="ideas">Ideas</option>
+          </select>
+          <button id="closeModal">&times;</button>
+        </div>
+        <div class="editor-container">
+          <textarea
+            id="noteContent"
+            placeholder="Write your note here... (Markdown supported)"
+          ></textarea>
+          <div id="preview" class="preview-pane"></div>
+        </div>
+        <div class="modal-footer">
+          <button id="togglePreview">Toggle Preview</button>
+          <button id="saveNote">Save Note</button>
+        </div>
+      </div>
+    </div>
+    <!-- Include marked.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="notes.js"></script>
+  </body>
+</html>
