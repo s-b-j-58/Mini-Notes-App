@@ -8,63 +8,51 @@ class NoteApp {
   }
 
   initializeApp() {
-    // Event listener for creating a new note
     document
       .getElementById("newNoteBtn")
       .addEventListener("click", () => this.showModal());
 
-    // Event listener for closing the modal
     document
       .getElementById("closeModal")
       .addEventListener("click", () => this.hideModal());
 
-    // Event listener for saving a note
     document
       .getElementById("saveNote")
       .addEventListener("click", () => this.saveNote());
 
-    // Event listener for toggling preview
     document
       .getElementById("togglePreview")
       .addEventListener("click", () => this.togglePreview());
 
-    // Event listener for updating preview
     document
       .getElementById("noteContent")
       .addEventListener("input", (e) => this.updatePreview(e));
 
-    // Event listener for search input
     document
       .getElementById("searchInput")
       .addEventListener("input", (e) => this.handleSearch(e));
 
-    // Event listeners for category filters
     document.querySelectorAll(".category-filter").forEach((button) => {
       button.addEventListener("click", () => {
-        // Update active class
         document
           .querySelectorAll(".category-filter")
           .forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
-        // Update current filter and render notes
         this.currentFilter = button.dataset.category;
         this.renderNotes();
       });
     });
 
-    // Event listener for theme toggle
     document
       .getElementById("themeToggle")
       .addEventListener("click", () => this.toggleTheme());
 
-    // Update theme icon
     this.updateThemeIcon();
 
     this.renderNotes();
   }
 
-  // Remove initializeNavigation() as it's no longer needed
 
   showSearchView() {
     const container = document.querySelector(".main-content");
@@ -92,12 +80,10 @@ class NoteApp {
       </div>
     `;
 
-    // Add category click handlers
     container.querySelectorAll(".category-item").forEach((cat) => {
       cat.addEventListener("click", () => {
         this.currentFilter = cat.dataset.category;
         this.renderNotes();
-        // Switch back to home view
         document.querySelector('.nav-item[data-view="home"]').click();
       });
     });
@@ -106,7 +92,6 @@ class NoteApp {
   showModal(noteToEdit = null) {
     const modal = document.getElementById("noteModal");
 
-    // Reset modal content to editing form
     modal.querySelector(".modal-content").innerHTML = `
         <div class="modal-header">
             <input type="text" id="noteTitle" placeholder="Note Title" />
@@ -127,7 +112,6 @@ class NoteApp {
         </div>
     `;
 
-    // Reattach event listeners
     document
       .getElementById("closeModal")
       .addEventListener("click", () => this.hideModal());
@@ -159,7 +143,6 @@ class NoteApp {
     modal.style.display = "block";
     this.updatePreview({ target: contentInput });
 
-    // Focus title input after modal opens
     setTimeout(() => {
       titleInput.focus();
     }, 100);
@@ -228,7 +211,6 @@ class NoteApp {
     card.className = "note-card";
     card.style.setProperty("--animation-order", index);
 
-    // Random gradient borders
     const gradients = [
       `linear-gradient(45deg, var(--neon-blue), var(--neon-purple))`,
       `linear-gradient(45deg, var(--cyber-pink), var(--neon-purple))`,
@@ -238,14 +220,6 @@ class NoteApp {
     card.style.borderImage =
       gradients[Math.floor(Math.random() * gradients.length)];
     card.style.borderImageSlice = 1;
-
-    // Randomly assign sizes for bento layout
-    // if (Math.random() > 0.7) {
-    //   card.style.gridRow = "span 2";
-    // }
-    // if (Math.random() > 0.8) {
-    //   card.style.gridColumn = "span 2";
-    // }
 
     card.innerHTML = `
             <div class="note-header">
@@ -266,15 +240,12 @@ class NoteApp {
             </div>
         `;
 
-    // Add click handler for full preview
     card.addEventListener("click", (e) => {
-      // Prevent triggering when clicking buttons
       if (!e.target.closest(".actions")) {
         this.showNotePreview(note);
       }
     });
 
-    // Update event listeners
     card.querySelector(".edit-btn").addEventListener("click", (e) => {
       e.stopPropagation();
       this.showModal(note);
@@ -284,7 +255,6 @@ class NoteApp {
       this.deleteNote(note.id);
     });
 
-    // Add futuristic entrance animation
     card.style.opacity = "0";
     card.style.transform = "translateY(20px) scale(0.95)";
     requestAnimationFrame(() => {
@@ -293,7 +263,6 @@ class NoteApp {
       card.style.transform = "translateY(0) scale(1)";
     });
 
-    // Add touch feedback
     card.addEventListener("touchstart", () => {
       card.style.transform = "scale(0.98)";
     });
@@ -323,7 +292,6 @@ class NoteApp {
         </div>
     `;
 
-    // Add event listeners for the preview modal
     modal
       .querySelector("#closeModal")
       .addEventListener("click", () => this.hideModal());
@@ -340,7 +308,6 @@ class NoteApp {
   }
 
   handleSearch(e) {
-    // Debounce search input
     clearTimeout(this.searchTimeout);
     this.searchTimeout = setTimeout(() => {
       const searchTerm = e.target.value.toLowerCase();
@@ -395,7 +362,6 @@ class NoteApp {
   }
 }
 
-// Initialize the app
 document.addEventListener("DOMContentLoaded", () => {
   new NoteApp();
 });
